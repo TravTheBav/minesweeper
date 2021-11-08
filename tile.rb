@@ -10,6 +10,7 @@ class Tile
         @revealed = false # all tiles start hidden
     end
 
+    # inspect has been overwritten so that each Tiles' board attribute doesn't get printed to the console
     def inspect
         "Position: #{get_pos}\n\tHas Bomb: #{bomb}\n\tHas Flag: #{flag}"
     end
@@ -22,6 +23,7 @@ class Tile
         @bomb = true
     end
 
+    # returns the Tiles' position
     def get_pos
         board.grid.each_with_index do |row, x|
             row.each_with_index do |tile, y|
@@ -31,6 +33,7 @@ class Tile
         end 
     end
 
+    # returns an array of all neighboring tiles
     def neighbors
         arr = []
         self_x, self_y = get_pos
@@ -48,6 +51,10 @@ class Tile
         end
 
         arr                 
+    end
+
+    def neighbor_bomb_count
+        neighbors.count { |neighbor| neighbor.bomb }
     end
 
 end
