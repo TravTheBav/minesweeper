@@ -6,7 +6,7 @@ class Board
     def initialize(width:, bombs:)
         @width = width
         @bombs = bombs
-        @grid = Array.new(width) { Array.new(width) { Tile.new(self) } }
+        @grid = Array.new(width) { Array.new(width) { Tile.new(board: self) } }
     end
 
     # selects x random numbers where x is the total amount of bombs
@@ -55,6 +55,5 @@ class Board
         end
         nil
     end
-
 
 end
