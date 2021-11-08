@@ -11,9 +11,7 @@ class Tile
     end
 
     def inspect
-        puts "Position: #{get_pos}"
-        puts "Has Bomb: #{bomb}"
-        puts "Has Flag: #{flag}"
+        "Position: #{get_pos}\n\tHas Bomb: #{bomb}\n\tHas Flag: #{flag}"
     end
 
     def reveal
@@ -34,7 +32,22 @@ class Tile
     end
 
     def neighbors
-        board.select 
+        arr = []
+        self_x, self_y = get_pos
+        x_range = (self_x - 1..self_x + 1)
+        y_range = (self_y - 1..self_y + 1)
+        
+        board.grid.each_with_index do |row, x|  # checks if the current tile is adjacent
+            row.each_with_index do |tile, y|
+                if x_range.include?(x) &&
+                    y_range.include?(y) &&
+                    !self.equal?(board[[x,y]]) # don't want to include self as a neighbor
+                    arr << board[[x,y]]
+                end
+            end
+        end
+
+        arr                 
     end
 
 end
