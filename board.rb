@@ -47,9 +47,7 @@ class Board
             print "#{x} "
             row.each_with_index do |tile, y|
                 pos = [x, y]
-                if !self[pos].revealed
-                    print "* "
-                end
+                self[pos].render
             end
             puts
         end

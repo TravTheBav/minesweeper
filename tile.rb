@@ -57,4 +57,25 @@ class Tile
         neighbors.count { |neighbor| neighbor.bomb }
     end
 
+    def is_interior_tile?
+        return true if neighbor_bomb_count == 0
+        false
+    end
+
+    def render
+        if flag # for flagged tiles
+            print "F "
+        elsif !revealed # for unrevealed tiles that aren't flagged
+            print "* "
+        else # for all revealed tiles
+            if bomb # first check for a bomb
+                print "B "
+            elsif is_interior_tile? # has no neighboring bombs
+                print "_ "            
+            else # for unrevealed tiles with adjacent bombs
+                print "#{neighbor_bomb_count} "
+            end
+        end
+    end
+
 end
