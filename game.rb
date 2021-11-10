@@ -12,31 +12,44 @@ class Game
         board.populate_bombs
         until win?
             board.render
-            pos = get_pos
-            board[pos].reveal
-            if lose?(pos)
-                system("clear")
-                board.render
-                puts "YOU BLEW UP"
-                return
+            input = get_input
+            prefix, pos = input
+            
+            case prefix
+            when "r"                
+                board[pos].reveal
+                if lose?(pos) # only check for a loss when revealing tiles
+                    system("clear")
+                    board.render
+                    puts "YOU BLEW UP"
+                    return
+                end
+            when "f"
+                board[pos].spawn_flag
+            else
+                "Error: prefix with 'r' or 'f'"
             end
+
             system("clear")
         end
         puts "B-)"
     end
 
     # gets position
-    def get_pos
+    def get_input
         pos = nil
         until pos && valid_pos?(pos)
             begin
-                print "Enter coordinates seperated by comma (e.g. '2,1'): "
-                pos = gets.chomp.split(",").map { |char| Integer(char) }
+                puts "Use prefix 'r' for reveal or 'f' for flag"
+                print "Enter coordinates seperated by comma (e.g. 'r 2,1'): "
+                input = gets.chomp.split(" ")
+                input[1] = input[1].split(",").map { |char| Integer(char) }
+                pos = input[1]
             rescue
                 puts "Error: coordinates must be in range and seperated by a comma"
             end
         end
-        pos
+        input
     end
 
     # checks for a valid position

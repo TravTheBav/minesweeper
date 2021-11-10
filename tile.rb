@@ -1,5 +1,4 @@
 require_relative 'board.rb'
-require 'byebug'
 
 class Tile
     attr_reader :board, :bomb, :flag, :revealed
@@ -38,6 +37,15 @@ class Tile
                 return pos if board[pos].equal? self
             end
         end 
+    end
+
+    # flags tile
+    def spawn_flag
+        if flag
+            @flag = false
+        else
+            @flag = true
+        end            
     end
 
     # returns an array of all neighboring tiles
