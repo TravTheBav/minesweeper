@@ -54,4 +54,8 @@ class Board
         nil
     end
 
+    def unrevealed_tile_count
+        grid.flatten.count { |tile| !tile.revealed }
+    end
+
 end
