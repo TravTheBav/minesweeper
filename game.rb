@@ -22,6 +22,7 @@ class Game
             end
             system("clear")
         end
+        puts "B-)"
     end
 
     # gets position
@@ -58,6 +59,6 @@ class Game
 
 end
 
-b = Board.new(width:4, bombs:3)
+b = Board.new(width:9, bombs:10)
 g = Game.new(b)
 g.run

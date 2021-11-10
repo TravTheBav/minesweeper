@@ -1,4 +1,5 @@
 require_relative 'board.rb'
+require 'byebug'
 
 class Tile
     attr_reader :board, :bomb, :flag, :revealed
@@ -15,8 +16,14 @@ class Tile
         "Position: #{get_pos}\n\tHas Bomb: #{bomb}\n\tHas Flag: #{flag}"
     end
 
+    # recursively reveals all interior tiles from the original revealed point
     def reveal
         @revealed = true
+        if is_interior_tile?
+            neighbors.each do |neighbor|
+                neighbor.reveal if !neighbor.revealed # only reveal the neighbor if it isn't already revealed
+            end
+        end
     end
 
     def spawn_bomb
